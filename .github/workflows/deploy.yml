@@ -1,0 +1,15 @@
+// call ${WEBHOOK_URL} for deploy when push to main & develop branch
+name: Deploy
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy
+        run: |
+          curl -X GET ${WEBHOOK_URL}
+
