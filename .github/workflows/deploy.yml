@@ -1,4 +1,3 @@
-// call ${WEBHOOK_URL} for deploy when push to main & develop branch
 on:
   push:
     branches: [main]
