@@ -1,5 +1,6 @@
 package kr.couchcoding.divelog.auth.service;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -12,6 +13,7 @@ import kr.couchcoding.divelog.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Profile("prod")
 @Slf4j
 public class FirebaseAuthService extends AuthService {
     private FirebaseAuth firebaseAuth;

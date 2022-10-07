@@ -10,7 +10,6 @@ import kr.couchcoding.divelog.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Profile("prod")
 public abstract class AuthService {
     protected UserService userService;
 
