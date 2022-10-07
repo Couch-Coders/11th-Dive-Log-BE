@@ -1,3 +1,10 @@
+### Login
 POST http://localhost:8080/auth/login
 Content-Type: application/json
 Authorization: Bearer testUser
+
+
+### get logs
+GET http://localhost:8080/logs
+Content-Type: application/json
+Cookie: idToken=testUser; Path=/; Secure; HttpOnly

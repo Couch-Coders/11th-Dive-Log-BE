@@ -1,6 +1,9 @@
 package kr.couchcoding.divelog.config;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -19,15 +22,18 @@ import kr.couchcoding.divelog.user.UserService;
 @EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
+@Slf4j
 public class SecurityConfig {
 
+    @Autowired
     UserService userService;
+    @Autowired
     AuthService authService;
 
     @Bean
-    @Profile("local")
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             setDefaultSecurityConfigs(http);
+            log.info("authService : " + authService);
             http.addFilterBefore(new AuthFilter(userService, authService),
                       UsernamePasswordAuthenticationFilter.class);
         return http.build();

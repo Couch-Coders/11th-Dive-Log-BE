@@ -20,8 +20,10 @@ import kr.couchcoding.divelog.exception.ExpiresTokenException;
 import kr.couchcoding.divelog.exception.InvalidAuthTokenException;
 import kr.couchcoding.divelog.user.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
+@Slf4j
 public class AuthFilter extends OncePerRequestFilter {
 
     private final UserService userDetailsService;
@@ -69,6 +71,7 @@ public class AuthFilter extends OncePerRequestFilter {
     private String findCookie(Cookie[] cookies, String cookieName) throws ExpiresTokenException {
         for(Cookie cookie : cookies){
             if(cookie.getName().equals(cookieName)){
+                log.info(cookieName + " : " + cookie.getValue());
                 return cookie.getValue();
             }
         }
