@@ -1,5 +1,6 @@
 package kr.couchcoding.divelog.auth.service;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import kr.couchcoding.divelog.auth.dto.AuthInfo;
@@ -9,6 +10,7 @@ import kr.couchcoding.divelog.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Profile("prod")
 public abstract class AuthService {
     protected UserService userService;
 
