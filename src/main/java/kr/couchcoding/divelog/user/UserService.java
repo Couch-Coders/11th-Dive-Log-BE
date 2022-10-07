@@ -3,23 +3,23 @@ package kr.couchcoding.divelog.user;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.stereotype.Service;
 
 import kr.couchcoding.divelog.auth.dto.AuthInfo;
 import lombok.RequiredArgsConstructor;
 
+@Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findById(username).orElseThrow(() -> new UsernameNotFoundException(username));
+        return getUser(username);
     }
 
     public User getUser(String id) {
-        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("No user found with that id"));
+        return userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException(id));
     }
 
     public User createUser(AuthInfo authInfo) {

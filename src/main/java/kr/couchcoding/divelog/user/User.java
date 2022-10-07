@@ -4,15 +4,19 @@ import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import kr.couchcoding.divelog.auth.dto.AuthInfo;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor
+@Table(name = "user", schema = "public")
 public class User implements UserDetails {
     @Id
     private String id;

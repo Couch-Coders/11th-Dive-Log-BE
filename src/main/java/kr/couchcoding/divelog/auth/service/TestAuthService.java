@@ -3,11 +3,14 @@ package kr.couchcoding.divelog.auth.service;
 import org.springframework.stereotype.Service;
 
 import kr.couchcoding.divelog.auth.dto.AuthInfo;
-import lombok.RequiredArgsConstructor;
+import kr.couchcoding.divelog.user.UserService;
 
 @Service
-@RequiredArgsConstructor
 public class TestAuthService extends AuthService {
+
+    public TestAuthService(UserService userService) {
+        super(userService);
+    }
 
     @Override
     public AuthInfo verifyToken(String token) {
