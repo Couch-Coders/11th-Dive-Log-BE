@@ -9,6 +9,8 @@ import com.google.firebase.auth.FirebaseToken;
 
 import kr.couchcoding.divelog.auth.dto.AuthInfo;
 import kr.couchcoding.divelog.exception.InvalidAuthTokenException;
+import kr.couchcoding.divelog.exception.RevokeTokenException;
+import kr.couchcoding.divelog.user.User;
 import kr.couchcoding.divelog.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +40,15 @@ public class FirebaseAuthService extends AuthService {
         } catch (FirebaseAuthException e) {
             log.error("Invalid token : {}", e.getMessage());
             throw new InvalidAuthTokenException(e.getMessage());
+        }
+    }
+
+    public void revokeToken(User user) throws RevokeTokenException {
+        try {
+            firebaseAuth.revokeRefreshTokens(user.getId());
+        } catch (FirebaseAuthException e) {
+            log.error("revoke token error : {}", e.getMessage());
+            throw new RevokeTokenException(e.getMessage());
         }
     }
 

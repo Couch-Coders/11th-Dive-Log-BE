@@ -1,10 +1,10 @@
 package kr.couchcoding.divelog.auth.service;
 
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import kr.couchcoding.divelog.auth.dto.AuthInfo;
 import kr.couchcoding.divelog.exception.InvalidAuthTokenException;
+import kr.couchcoding.divelog.exception.RevokeTokenException;
 import kr.couchcoding.divelog.user.User;
 import kr.couchcoding.divelog.user.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +18,7 @@ public abstract class AuthService {
     }
 
     public abstract AuthInfo verifyToken(String token) throws InvalidAuthTokenException;
+    public abstract void revokeToken(User user) throws RevokeTokenException;
     public User loginOrSignUp(AuthInfo authInfo) {
         User user;
         try{
