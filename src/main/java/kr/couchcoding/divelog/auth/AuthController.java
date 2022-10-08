@@ -75,4 +75,9 @@ public class AuthController {
     public ResponseEntity<String> handleInvalidAuthTokenException(InvalidAuthTokenException e){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
+
+    @ExceptionHandler(RevokeTokenException.class)
+    public ResponseEntity<String> handleRevokeTokenException(RevokeTokenException e){
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+    }
 }
