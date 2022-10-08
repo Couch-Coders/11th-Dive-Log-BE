@@ -5,7 +5,7 @@ Authorization: Bearer testUser
 
 
 ### Logout
-POST http://localhost:8080/auth/logout
+DELETE http://localhost:8080/auth/logout
 Content-Type: application/json
 Cookie: idToken=testUser; Path=/; Secure; HttpOnly
 
