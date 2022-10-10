@@ -51,6 +51,7 @@ public class Log {
     private List<String> images = new ArrayList<>();
     private Double longitude;
     private Double latitude;
+    private Boolean isFavorite = false;
 
 
     @Builder
@@ -96,5 +97,13 @@ public class Log {
         this.temperature = (request.getTemperature() != null)? request.getTemperature() : this.temperature;
         this.longitude = (request.getLongitude() != null)? request.getLongitude() : this.longitude;
         this.latitude = (request.getLatitude() != null)? request.getLatitude() : this.latitude;
+    }
+
+    public void updateFavorite() {
+        if(this.isFavorite == null) {
+            this.isFavorite = true;
+        } else {
+            this.isFavorite = !this.isFavorite;
+        }
     }
 }

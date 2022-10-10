@@ -88,6 +88,12 @@ public class LogController {
         logService.deleteImage(id, user, imageName);
     }
 
+    @PutMapping(value="/{id}/favorite")
+    public LogResponse toggleFavorite(Authentication authentication, @PathVariable(name="id") Long id) throws InvalidLogAccessException {
+        User user = (User) authentication.getPrincipal();
+        return new LogResponse(logService.updateFavorite(id, user));
+    }
+
     @ExceptionHandler(InvalidLogAccessException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public String invalidLogAccessException(InvalidLogAccessException e) {

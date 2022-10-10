@@ -28,6 +28,7 @@ public class LogResponse {
     private List<String> images = new ArrayList<>();
     private double longitude;
     private double latitude;
+    private Boolean isFavorite = false;
 
     public LogResponse(Log log){
         this.id = log.getId();
@@ -46,5 +47,6 @@ public class LogResponse {
         this.images = log.getImages();
         this.longitude = log.getLongitude();
         this.latitude = log.getLatitude();
+        this.isFavorite = log.getIsFavorite();
     }
 }

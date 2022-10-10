@@ -111,9 +111,17 @@ public class LogService {
         return logRepository.findAllByUser(user, pageable);
     }
 
+    @Transactional
     public Log updateLog(Long id, User user, CreateLogRequest request) throws InvalidLogAccessException {
         Log diveLog = getDiveLogWithVerifyAccess(id, user);
         diveLog.update(request);
+        return diveLog;
+    }
+
+    @Transactional
+    public Log updateFavorite(Long id, User user) throws InvalidLogAccessException {
+        Log diveLog = getDiveLogWithVerifyAccess(id, user);
+        diveLog.updateFavorite();
         return diveLog;
     }
 }

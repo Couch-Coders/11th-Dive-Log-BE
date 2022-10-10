@@ -45,6 +45,10 @@ Cookie: idToken=testUser; Path=/; Secure; HttpOnly
   "longitude": 12.345666,
   "latitude":12.345666
 }
+### update log favorite
+PUT http://localhost:8080/logs/11/favorite
+Content-Type: application/json;charset=UTF-8
+Cookie: idToken=testUser; Path=/; Secure; HttpOnly
 
 ### add log image
 POST http://localhost:8080/logs/3/images
