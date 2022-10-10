@@ -23,8 +23,6 @@ public class CreateLogRequest {
     private Integer minOxygen;
     private Location location;
     private String content;
-    @ElementCollection
-    private List<String> images = new ArrayList<>();
     private Double longitude;
     private Double latitude;
 }
