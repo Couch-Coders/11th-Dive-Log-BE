@@ -9,8 +9,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.couchcoding.divelog.exception.BucketCreateException;
+import kr.couchcoding.divelog.exception.ImageNotFoundException;
 import kr.couchcoding.divelog.exception.InvalidLogAccessException;
 import kr.couchcoding.divelog.log.dto.CreateLogRequest;
 import kr.couchcoding.divelog.log.dto.LogResponse;
@@ -47,6 +50,12 @@ public class LogController {
         return new LogResponse(logService.getDiveLogWithVerifyAccess(id, user));
     }
 
+    @PutMapping(value="/{id}")
+    public LogResponse updateLog(@PathVariable(name="id") Long id, Authentication authentication, @RequestBody CreateLogRequest request) throws InvalidLogAccessException {
+        User user = (User) authentication.getPrincipal();
+        return new LogResponse(logService.updateLog(id, user, request));
+    }
+
     @DeleteMapping(value="/{id}")
     public void deleteLog(Authentication authentication, @PathVariable Long id) throws InvalidLogAccessException {
         User user = (User) authentication.getPrincipal();
@@ -68,9 +77,16 @@ public class LogController {
     }
 
     @GetMapping(value="/{id}/images/{imageName}")
-    public byte[] getImage(Authentication authentication, @PathVariable Long id, @PathVariable String imageName) throws InvalidLogAccessException, BucketCreateException {
+    public byte[] getImage(Authentication authentication, @PathVariable Long id,
+         @PathVariable String imageName) throws ImageNotFoundException {
         User user = (User) authentication.getPrincipal();
         return logService.getImage(id, user, imageName);
+    }
+
+    @DeleteMapping(value="/{id}/images/{imageName}")
+    public void deleteImage(Authentication authentication, @PathVariable Long id, @PathVariable String imageName) throws InvalidLogAccessException, BucketCreateException {
+        User user = (User) authentication.getPrincipal();
+        logService.deleteImage(id, user, imageName);
     }
 
     @ExceptionHandler(InvalidLogAccessException.class)
@@ -82,6 +98,12 @@ public class LogController {
     @ExceptionHandler(BucketCreateException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String bucketCreateException(BucketCreateException e) {
+        return e.getMessage();
+    }
+
+    @ExceptionHandler(ImageNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String imageNotFoundException(ImageNotFoundException e) {
         return e.getMessage();
     }
 }

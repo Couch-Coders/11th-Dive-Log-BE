@@ -6,15 +6,18 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.apache.http.HttpStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.api.gax.rpc.NotFoundException;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Bucket;
 
 import kr.couchcoding.divelog.exception.BucketCreateException;
+import kr.couchcoding.divelog.exception.ImageNotFoundException;
 import kr.couchcoding.divelog.exception.InvalidLogAccessException;
 import kr.couchcoding.divelog.log.dto.CreateLogRequest;
 import kr.couchcoding.divelog.user.User;
@@ -78,10 +81,24 @@ public class LogService {
         return diveLog;
     }
 
-    public byte[] getImage(Long id, User user, String imageName) {
+    public byte[] getImage(Long id, User user, String imageName) throws ImageNotFoundException {
         String filePath = "/logs/" + id + "/" + imageName;
         Blob blob = bucket.get(filePath);
+        if(blob == null){
+            throw new ImageNotFoundException(filePath + " is not found");
+        }
         return blob.getContent();
+    }
+
+    @Transactional
+    public void deleteImage(Long id, User user, String imageName) throws InvalidLogAccessException {
+        Log diveLog = getDiveLogWithVerifyAccess(id, user);
+        String filePath = "/logs/" + id + "/" + imageName;
+
+        Blob blob = bucket.get(filePath);
+        blob.delete();
+
+        diveLog.deleteImage(filePath);
     }
 
     public Log getDiveLogWithVerifyAccess(Long id, User user) throws InvalidLogAccessException {
@@ -94,5 +111,11 @@ public class LogService {
 
     public Page<Log> getLogs(User user, Pageable pageable) {
         return logRepository.findAllByUser(user, pageable);
+    }
+
+    public Log updateLog(Long id, User user, CreateLogRequest request) throws InvalidLogAccessException {
+        Log diveLog = getDiveLogWithVerifyAccess(id, user);
+        diveLog.update(request);
+        return diveLog;
     }
 }
