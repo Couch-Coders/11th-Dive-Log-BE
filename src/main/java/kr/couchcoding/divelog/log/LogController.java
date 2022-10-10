@@ -60,18 +60,18 @@ public class LogController {
         return logs.map(LogResponse::new);
     }
 
-    // @PostMapping(value="/{id}/images")
-    // @ResponseStatus(value = HttpStatus.CREATED)
-    // public LogResponse addImages(Authentication authentication, @RequestParam List<MultipartFile> images, @RequestParam Long id) throws InvalidLogAccessException, BucketCreateException {
-    //     User user = (User) authentication.getPrincipal();
-    //     return new LogResponse(logService.addImages(id, user, images));
-    // }
+    @PostMapping(value="/{id}/images")
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public LogResponse addImages(Authentication authentication, @RequestParam List<MultipartFile> images, @RequestParam Long id) throws InvalidLogAccessException, BucketCreateException {
+        User user = (User) authentication.getPrincipal();
+        return new LogResponse(logService.addImages(id, user, images));
+    }
 
-    // @GetMapping(value="/{id}/images/{imageName}")
-    // public byte[] getImage(Authentication authentication, @RequestParam Long id, @RequestParam String imageName) throws InvalidLogAccessException, BucketCreateException {
-    //     User user = (User) authentication.getPrincipal();
-    //     return logService.getImage(id, user, imageName);
-    // }
+    @GetMapping(value="/{id}/images/{imageName}")
+    public byte[] getImage(Authentication authentication, @RequestParam Long id, @RequestParam String imageName) throws InvalidLogAccessException, BucketCreateException {
+        User user = (User) authentication.getPrincipal();
+        return logService.getImage(id, user, imageName);
+    }
 
     @ExceptionHandler(InvalidLogAccessException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)

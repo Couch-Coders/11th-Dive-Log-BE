@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LogService {
     private final LogRepository logRepository;
-    // private final Bucket bucket;
+    private final Bucket bucket;
 
     @Transactional
     public Log createLog(User user ,CreateLogRequest request) {
@@ -55,34 +55,34 @@ public class LogService {
         logRepository.delete(diveLog);
     }
 
-    // @Transactional
-    // public Log addImages(Long id, User user, List<MultipartFile> images) throws InvalidLogAccessException, BucketCreateException {
-    //     Log diveLog = getDiveLogWithVerifyAccess(id, user);
+    @Transactional
+    public Log addImages(Long id, User user, List<MultipartFile> images) throws InvalidLogAccessException, BucketCreateException {
+        Log diveLog = getDiveLogWithVerifyAccess(id, user);
 
-    //     List<String> imageUrls = new ArrayList<>();
-    //     for(int i = 0; i < images.size(); i++){
-    //         MultipartFile image = images.get(i);
-    //         String fileName = image.getOriginalFilename();
-    //         String filePath = "/logs/" + id + "/" + fileName + i;
-    //         imageUrls.add(filePath);
-    //         try {
-    //             bucket.create(filePath, image.getBytes(), image.getContentType());
-    //         } catch (IOException e) {
-    //             log.error("Bucket Create Error", e);
-    //             throw new BucketCreateException(e.getMessage());
-    //         }
-    //     }
+        List<String> imageUrls = new ArrayList<>();
+        for(int i = 0; i < images.size(); i++){
+            MultipartFile image = images.get(i);
+            String fileName = image.getOriginalFilename();
+            String filePath = "/logs/" + id + "/" + fileName + i;
+            imageUrls.add(filePath);
+            try {
+                bucket.create(filePath, image.getBytes(), image.getContentType());
+            } catch (IOException e) {
+                log.error("Bucket Create Error", e);
+                throw new BucketCreateException(e.getMessage());
+            }
+        }
 
-    //     diveLog.addImages(imageUrls);
+        diveLog.addImages(imageUrls);
 
-    //     return diveLog;
-    // }
+        return diveLog;
+    }
 
-    // public byte[] getImage(Long id, User user, String imageName) {
-    //     String filePath = "/logs/" + id + "/" + imageName;
-    //     Blob blob = bucket.get(filePath);
-    //     return blob.getContent();
-    // }
+    public byte[] getImage(Long id, User user, String imageName) {
+        String filePath = "/logs/" + id + "/" + imageName;
+        Blob blob = bucket.get(filePath);
+        return blob.getContent();
+    }
 
     public Log getDiveLogWithVerifyAccess(Long id, User user) throws InvalidLogAccessException {
         Log diveLog = logRepository.findById(id).orElseThrow(() -> new InvalidLogAccessException("해당 로그가 없습니다."));
