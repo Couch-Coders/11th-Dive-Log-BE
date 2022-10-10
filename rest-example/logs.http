@@ -25,9 +25,25 @@ GET http://localhost:8080/logs
 Cookie: idToken=testUser; Path=/; Secure; HttpOnly
 
 ### get log
-GET http://localhost:8080/logs/1
+GET http://localhost:8080/logs/2
 Cookie: idToken=testUser; Path=/; Secure; HttpOnly
 
 ### delete log
 DELETE http://localhost:8080/logs/1
+Cookie: idToken=testUser; Path=/; Secure; HttpOnly
+
+### add log image
+POST http://localhost:8080/logs/2/images
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Cookie: idToken=testUser; Path=/; Secure; HttpOnly
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="images"; filename="test.png"
+Content-Type: image/png
+
+< ./test.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+### get log images
+GET http://localhost:8080/logs/2/images/test.png0
 Cookie: idToken=testUser; Path=/; Secure; HttpOnly
