@@ -19,11 +19,13 @@ import kr.couchcoding.divelog.location.Location;
 import kr.couchcoding.divelog.user.User;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
 @Entity
 @Table(name = "log", schema = "public")
 @Getter
+@NoArgsConstructor
 public class Log {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

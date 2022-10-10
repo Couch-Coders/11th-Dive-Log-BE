@@ -19,3 +19,15 @@ Cookie: idToken=testUser; Path=/; Secure; HttpOnly
   "longitude": 12.345666,
   "latitude":12.345666
 }
+
+### get logs
+GET http://localhost:8080/logs
+Cookie: idToken=testUser; Path=/; Secure; HttpOnly
+
+### get log
+GET http://localhost:8080/logs/1
+Cookie: idToken=testUser; Path=/; Secure; HttpOnly
+
+### delete log
+DELETE http://localhost:8080/logs/1
+Cookie: idToken=testUser; Path=/; Secure; HttpOnly
