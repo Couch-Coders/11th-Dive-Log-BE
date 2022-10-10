@@ -16,15 +16,15 @@ public class CreateLogRequest {
     private DiveType diveType;
     private LocalDateTime enterTime;
     private LocalDateTime leaveTime;
-    private int sight;
-    private int maxDepth;
-    private int temperature;
-    private int maxOxygen;
-    private int minOxygen;
+    private Integer sight;
+    private Integer maxDepth;
+    private Integer temperature;
+    private Integer maxOxygen;
+    private Integer minOxygen;
     private Location location;
     private String content;
     @ElementCollection
     private List<String> images = new ArrayList<>();
-    private double longitude;
-    private double latitude;
+    private Double longitude;
+    private Double latitude;
 }

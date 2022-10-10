@@ -112,4 +112,10 @@ public class LogService {
     public Page<Log> getLogs(User user, Pageable pageable) {
         return logRepository.findAllByUser(user, pageable);
     }
+
+    public Log updateLog(Long id, User user, CreateLogRequest request) throws InvalidLogAccessException {
+        Log diveLog = getDiveLogWithVerifyAccess(id, user);
+        diveLog.update(request);
+        return diveLog;
+    }
 }

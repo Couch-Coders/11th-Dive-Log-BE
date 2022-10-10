@@ -25,7 +25,7 @@ GET http://localhost:8080/logs
 Cookie: idToken=testUser; Path=/; Secure; HttpOnly
 
 ### get log
-GET http://localhost:8080/logs/2
+GET http://localhost:8080/logs/11
 Cookie: idToken=testUser; Path=/; Secure; HttpOnly
 
 ### delete log
@@ -33,20 +33,13 @@ DELETE http://localhost:8080/logs/1
 Cookie: idToken=testUser; Path=/; Secure; HttpOnly
 
 ### update log
-PATCH http://localhost:8080/logs/2
+PUT http://localhost:8080/logs/11
 Content-Type: application/json;charset=UTF-8
 Cookie: idToken=testUser; Path=/; Secure; HttpOnly
 
 {
-  "date": "2022-02-21T01:03:01.94",
-  "diveType": "FREE",
-  "enterTime": "2022-02-21T01:03:01.94",
-  "leaveTime": "2022-02-21T01:03:01.94",
   "sight": 5,
-  "maxDepth": 25,
-  "temperature": 10,
-  "maxOxygen": 200,
-  "minOxygen": 50,
+  "maxDepth": 20,
   "location": "경상북도",
   "content": "니모 봤음~~~",
   "longitude": 12.345666,

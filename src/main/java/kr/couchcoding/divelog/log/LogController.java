@@ -9,8 +9,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,6 +48,12 @@ public class LogController {
     public LogResponse getLog(@PathVariable Long id, Authentication authentication) throws InvalidLogAccessException {
         User user = (User) authentication.getPrincipal();
         return new LogResponse(logService.getDiveLogWithVerifyAccess(id, user));
+    }
+
+    @PutMapping(value="/{id}")
+    public LogResponse updateLog(@PathVariable(name="id") Long id, Authentication authentication, @RequestBody CreateLogRequest request) throws InvalidLogAccessException {
+        User user = (User) authentication.getPrincipal();
+        return new LogResponse(logService.updateLog(id, user, request));
     }
 
     @DeleteMapping(value="/{id}")
