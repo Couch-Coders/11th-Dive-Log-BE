@@ -73,8 +73,11 @@ public class Log {
         this.latitude = latitude;
     }
 
-
     public void addImages(List<String> imageUrls) {
         this.images.addAll(imageUrls);
     } 
+
+    public void deleteImage(String imageUrl) {
+        this.images.remove(imageUrl);
+    }
 }

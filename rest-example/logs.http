@@ -32,8 +32,29 @@ Cookie: idToken=testUser; Path=/; Secure; HttpOnly
 DELETE http://localhost:8080/logs/1
 Cookie: idToken=testUser; Path=/; Secure; HttpOnly
 
+### update log
+PATCH http://localhost:8080/logs/2
+Content-Type: application/json;charset=UTF-8
+Cookie: idToken=testUser; Path=/; Secure; HttpOnly
+
+{
+  "date": "2022-02-21T01:03:01.94",
+  "diveType": "FREE",
+  "enterTime": "2022-02-21T01:03:01.94",
+  "leaveTime": "2022-02-21T01:03:01.94",
+  "sight": 5,
+  "maxDepth": 25,
+  "temperature": 10,
+  "maxOxygen": 200,
+  "minOxygen": 50,
+  "location": "경상북도",
+  "content": "니모 봤음~~~",
+  "longitude": 12.345666,
+  "latitude":12.345666
+}
+
 ### add log image
-POST http://localhost:8080/logs/2/images
+POST http://localhost:8080/logs/3/images
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 Cookie: idToken=testUser; Path=/; Secure; HttpOnly
 
@@ -45,5 +66,11 @@ Content-Type: image/png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ### get log images
-GET http://localhost:8080/logs/2/images/test.png0
+GET http://localhost:8080/logs/3/images/0
 Cookie: idToken=testUser; Path=/; Secure; HttpOnly
+
+
+### delete log image
+DELETE http://localhost:8080/logs/3/images/0
+Cookie: idToken=testUser; Path=/; Secure; HttpOnly
+
