@@ -69,5 +69,10 @@ public class Log {
         this.images = images;
         this.longitude = longitude;
         this.latitude = latitude;
+    }
+
+
+    public void addImages(List<String> imageUrls) {
+        this.images.addAll(imageUrls);
     } 
 }
