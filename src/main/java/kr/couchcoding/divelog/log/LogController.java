@@ -2,6 +2,8 @@ package kr.couchcoding.divelog.log;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,6 +50,13 @@ public class LogController {
     public void deleteLog(Authentication authentication, @RequestParam Long id) throws InvalidLogAccessException {
         User user = (User) authentication.getPrincipal();
         logService.deleteLog(id, user);
+    }
+
+    @GetMapping(value="")
+    public Page<LogResponse> getLogs(Authentication authentication, Pageable pageable) {
+        User user = (User) authentication.getPrincipal();
+        Page<Log> logs = logService.getLogs(user, pageable);
+        return logs.map(LogResponse::new);
     }
 
     @PostMapping(value="/{id}/images")

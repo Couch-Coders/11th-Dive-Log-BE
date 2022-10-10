@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -88,5 +90,9 @@ public class LogService {
             throw new InvalidLogAccessException("해당 로그의 작성자가 아닙니다.");
         }
         return diveLog;
+    }
+
+    public Page<Log> getLogs(User user, Pageable pageable) {
+        return logRepository.findAllByUser(user, pageable);
     }
 }
