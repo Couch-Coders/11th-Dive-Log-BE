@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 public class DiveLogApplication {
 
 	public static void main(String[] args) {
-		log.info("database url : " + System.getenv("JDBC_DATABASE_URL"));
 		SpringApplication.run(DiveLogApplication.class, args);
 	}
 
