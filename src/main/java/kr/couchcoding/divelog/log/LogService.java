@@ -6,13 +6,11 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.apache.http.HttpStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.api.gax.rpc.NotFoundException;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Bucket;
 
