@@ -15,7 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
+import kr.couchcoding.divelog.location.Location;
 import kr.couchcoding.divelog.user.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -41,17 +41,18 @@ public class Log {
     private int temperature;
     private int maxOxygen;
     private int minOxygen;
-    private String location;
+    @Enumerated(EnumType.STRING)
+    private Location location;
     private String content;
     @ElementCollection
     private List<String> images = new ArrayList<>();
     private double longitude;
     private double latitude;
 
-    
+
     @Builder
     public Log(User user, LocalDateTime date, DiveType diveType, LocalDateTime enterTime, LocalDateTime leaveTime,
-            int sight, int maxDepth, int temperature, int maxOxygen, int minOxygen, String location, String content,
+            int sight, int maxDepth, int temperature, int maxOxygen, int minOxygen, Location location, String content,
             List<String> images, double longitude, double latitude) {
         this.user = user;
         this.date = date;

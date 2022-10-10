@@ -1,0 +1,21 @@
+## create log
+
+POST http://localhost:8080/logs
+Content-Type: application/json;charset=UTF-8
+Cookie: idToken=testUser; Path=/; Secure; HttpOnly
+
+{
+  "date": "2022-02-21T01:03:01.94",
+  "diveType": "FREE",
+  "enterTime": "2022-02-21T01:03:01.94",
+  "leaveTime": "2022-02-21T01:03:01.94",
+  "sight": 5,
+  "maxDepth": 30,
+  "temperature": 10,
+  "maxOxygen": 200,
+  "minOxygen": 50,
+  "location": "경상남도",
+  "content": "니모 봤음~~~",
+  "longitude": 12.345666,
+  "latitude":12.345666
+}
