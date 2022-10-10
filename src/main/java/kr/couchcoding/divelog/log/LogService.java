@@ -48,11 +48,14 @@ public class LogService {
     }
 
     @Transactional
+    public void deleteLog(Long id, User user) throws InvalidLogAccessException {
+        Log diveLog = getDiveLogWithVerifyAccess(id, user);
+        logRepository.delete(diveLog);
+    }
+
+    @Transactional
     public Log addImages(Long id, User user, List<MultipartFile> images) throws InvalidLogAccessException, BucketCreateException {
-        Log diveLog = logRepository.findById(id).orElseThrow(() -> new InvalidLogAccessException("해당 로그가 없습니다."));
-        if(!diveLog.getUser().getId().equals(user.getId())){
-            throw new InvalidLogAccessException("해당 로그의 작성자가 아닙니다.");
-        }
+        Log diveLog = getDiveLogWithVerifyAccess(id, user);
 
         List<String> imageUrls = new ArrayList<>();
         for(int i = 0; i < images.size(); i++){
@@ -78,5 +81,12 @@ public class LogService {
         Blob blob = bucket.get(filePath);
         return blob.getContent();
     }
-    
+
+    public Log getDiveLogWithVerifyAccess(Long id, User user) throws InvalidLogAccessException {
+        Log diveLog = logRepository.findById(id).orElseThrow(() -> new InvalidLogAccessException("해당 로그가 없습니다."));
+        if(!diveLog.getUser().getId().equals(user.getId())){
+            throw new InvalidLogAccessException("해당 로그의 작성자가 아닙니다.");
+        }
+        return diveLog;
+    }
 }

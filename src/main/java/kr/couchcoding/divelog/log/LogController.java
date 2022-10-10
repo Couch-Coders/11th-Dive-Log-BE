@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +36,18 @@ public class LogController {
     public LogResponse createLog(Authentication authentication, @RequestBody CreateLogRequest request) {
         User user = (User) authentication.getPrincipal();
         return new LogResponse(logService.createLog(user, request));
+    }
+
+    @GetMapping(value="/{id}")
+    public LogResponse getLog(@RequestParam Long id, Authentication authentication) throws InvalidLogAccessException {
+        User user = (User) authentication.getPrincipal();
+        return new LogResponse(logService.getDiveLogWithVerifyAccess(id, user));
+    }
+
+    @DeleteMapping(value="/{id}")
+    public void deleteLog(Authentication authentication, @RequestParam Long id) throws InvalidLogAccessException {
+        User user = (User) authentication.getPrincipal();
+        logService.deleteLog(id, user);
     }
 
     @PostMapping(value="/{id}/images")
