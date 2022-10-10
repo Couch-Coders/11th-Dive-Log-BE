@@ -25,6 +25,7 @@ public class FirebaseConfig {
 
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                .setStorageBucket("th-bubble-log.appspot.com")
                 .build();
 
         FirebaseApp app = FirebaseApp.initializeApp(options);
@@ -40,8 +41,8 @@ public class FirebaseConfig {
         return firebaseAuth;
     }
     
-    // @Bean
-    // public Bucket bucket() throws IOException {
-    //     return StorageClient.getInstance(firebaseApp()).bucket();
-    // }
+    @Bean
+    public Bucket bucket() throws IOException {
+        return StorageClient.getInstance(firebaseApp()).bucket();
+    }
 }
