@@ -55,6 +55,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.OPTIONS, "/**")
                 .antMatchers("/")
                 .antMatchers(HttpMethod.GET, "/locations")
+                .antMatchers(HttpMethod.GET, "/diveTypes")
                 .antMatchers("/auth/login") //로그인은 로그인이 필요 없다
                 .antMatchers("/favicon.ico");
     }
