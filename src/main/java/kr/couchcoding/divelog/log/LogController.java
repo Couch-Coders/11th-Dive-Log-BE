@@ -68,7 +68,7 @@ public class LogController {
     public Page<LogResponse> getLogs(Authentication authentication, Pageable pageable, SearchLogParams params) {
         log.info("params: {}", params);
         User user = (User) authentication.getPrincipal();
-        Page<Log> logs = logService.getLogs(user, pageable);
+        Page<Log> logs = logService.getLogs(user, pageable, params);
         return logs.map(LogResponse::new);
     }
 

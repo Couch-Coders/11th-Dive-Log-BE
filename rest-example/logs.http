@@ -20,8 +20,8 @@ Cookie: idToken=testUser; Path=/; Secure; HttpOnly
   "latitude":12.345666
 }
 
-### get logs
-GET http://localhost:8080/logs?diveType=FREE&location=경상남도&startDate=2022-01-01&endDate=2022-11-01&startDepth=0&endDepth=100&startOxygen=0&endOxygen=100&startSight=0&endSight=100&minTemperature=0&maxTemperature=100&minDepth=0&maxDepth=30&keyword=abc
+### get log
+GET http://localhost:8080/logs?diveType=FREE&location=경상북도&startDate=2022-01-01&endDate=2022-11-01&startDepth=0&endDepth=100&startOxygen=0&endOxygen=100&startSight=0&endSight=100&minTemperature=0&maxTemperature=100&minDepth=0&maxDepth=30
 Cookie: idToken=testUser; Path=/; Secure; HttpOnly
 
 ### get log
@@ -41,10 +41,11 @@ Cookie: idToken=testUser; Path=/; Secure; HttpOnly
   "sight": 5,
   "maxDepth": 20,
   "location": "경상북도",
-  "content": "니모 봤음~~~",
+  "content": "아무것도 못봄",
   "longitude": 12.345666,
   "latitude":12.345666
 }
+
 ### update log favorite
 PUT http://localhost:8080/logs/11/favorite
 Content-Type: application/json;charset=UTF-8

@@ -19,6 +19,7 @@ import kr.couchcoding.divelog.exception.ImageNotFoundException;
 import kr.couchcoding.divelog.exception.InvalidLogAccessException;
 import kr.couchcoding.divelog.log.dao.LogRepository;
 import kr.couchcoding.divelog.log.dto.CreateLogRequest;
+import kr.couchcoding.divelog.log.dto.SearchLogParams;
 import kr.couchcoding.divelog.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -108,8 +109,8 @@ public class LogService {
         return diveLog;
     }
 
-    public Page<Log> getLogs(User user, Pageable pageable) {
-        return logRepository.findAllByUser(user, pageable);
+    public Page<Log> getLogs(User user, Pageable pageable, SearchLogParams params) {
+        return logRepository.findAllBySearchOption(user, pageable, params);
     }
 
     @Transactional

@@ -9,9 +9,7 @@ import kr.couchcoding.divelog.log.Log;
 import kr.couchcoding.divelog.user.User;
 
 @Repository
-public interface LogRepository extends JpaRepository<Log, Long> {
-
-    Page<Log> findAllByUser(User user, Pageable pageable);
+public interface LogRepository extends JpaRepository<Log, Long>, LogRepositoryCustom {
 
 }
     
