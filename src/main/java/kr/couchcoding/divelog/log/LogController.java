@@ -1,5 +1,6 @@
 package kr.couchcoding.divelog.log;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -22,8 +23,10 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.couchcoding.divelog.exception.BucketCreateException;
 import kr.couchcoding.divelog.exception.ImageNotFoundException;
 import kr.couchcoding.divelog.exception.InvalidLogAccessException;
+import kr.couchcoding.divelog.location.Location;
 import kr.couchcoding.divelog.log.dto.CreateLogRequest;
 import kr.couchcoding.divelog.log.dto.LogResponse;
+import kr.couchcoding.divelog.log.dto.SearchLogParams;
 import kr.couchcoding.divelog.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -62,7 +65,8 @@ public class LogController {
     }
 
     @GetMapping(value="")
-    public Page<LogResponse> getLogs(Authentication authentication, Pageable pageable) {
+    public Page<LogResponse> getLogs(Authentication authentication, Pageable pageable, SearchLogParams params) {
+        log.info("params: {}", params);
         User user = (User) authentication.getPrincipal();
         Page<Log> logs = logService.getLogs(user, pageable);
         return logs.map(LogResponse::new);

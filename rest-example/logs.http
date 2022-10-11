@@ -21,7 +21,7 @@ Cookie: idToken=testUser; Path=/; Secure; HttpOnly
 }
 
 ### get logs
-GET http://localhost:8080/logs
+GET http://localhost:8080/logs?diveType=FREE&location=경상남도&startDate=2022-01-01&endDate=2022-11-01&startDepth=0&endDepth=100&startOxygen=0&endOxygen=100&startSight=0&endSight=100&minTemperature=0&maxTemperature=100&minDepth=0&maxDepth=30&keyword=abc
 Cookie: idToken=testUser; Path=/; Secure; HttpOnly
 
 ### get log
