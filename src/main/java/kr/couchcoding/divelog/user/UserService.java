@@ -29,5 +29,9 @@ public class UserService implements UserDetailsService {
         User user = new User(authInfo);
         return userRepository.save(user);
     }
+
+    public void deleteUser(User user) {
+        userRepository.delete(user);
+    }
     
 }
