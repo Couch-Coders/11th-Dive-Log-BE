@@ -17,6 +17,7 @@ import com.google.cloud.storage.Bucket;
 import kr.couchcoding.divelog.exception.BucketCreateException;
 import kr.couchcoding.divelog.exception.ImageNotFoundException;
 import kr.couchcoding.divelog.exception.InvalidLogAccessException;
+import kr.couchcoding.divelog.log.dao.LogRepository;
 import kr.couchcoding.divelog.log.dto.CreateLogRequest;
 import kr.couchcoding.divelog.user.User;
 import lombok.RequiredArgsConstructor;
