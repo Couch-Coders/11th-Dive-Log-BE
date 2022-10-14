@@ -34,8 +34,12 @@ public class AuthFilter extends OncePerRequestFilter {
         throws ServletException, IOException {
         // get accessToken from cookie
         try {
-            Cookie[] cookies = request.getCookies();
-            String idToken = findCookie(cookies, "idToken");
+            String bearerToken = request.getHeader("Authorization");
+            String idToken = bearerToken.substring(7);
+
+            if(idToken == null || idToken.isEmpty()){
+                throw new InvalidAuthTokenException("no token provided");
+            }
   
             String id = authService.verifyToken(idToken).id();
 
@@ -44,13 +48,6 @@ public class AuthFilter extends OncePerRequestFilter {
                     user, null, user.getAuthorities());//인증 객체 생성        
             SecurityContextHolder.getContext().setAuthentication(authentication);//securityContextHolder 에 인증 객체 저장
             filterChain.doFilter(request, response);
-        } catch (ExpiresTokenException e) {
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            response.getWriter().write("""
-                {
-                    "message": "Unauthorized"
-                }
-            """);
         } catch (InvalidAuthTokenException e) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.getWriter().write(""" 

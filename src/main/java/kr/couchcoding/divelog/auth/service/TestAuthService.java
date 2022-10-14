@@ -20,9 +20,9 @@ public class TestAuthService extends AuthService {
 
     @Override
     public AuthInfo verifyToken(String token)  {
-        return AuthInfo.builder().id(token)
-        .name(token)
-        .email(token+"@test.com")
+        return AuthInfo.builder().id(token.substring(0, 4))
+        .name(token.substring(0, 4))
+        .email(token.substring(0, 4)+"@test.com")
         .profileImage("")
         .idToken(token)
         .build();
