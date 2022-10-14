@@ -35,6 +35,10 @@ public class AuthFilter extends OncePerRequestFilter {
         // get accessToken from cookie
         try {
             String bearerToken = request.getHeader("Authorization");
+            if(bearerToken == null) {
+                throw new InvalidAuthTokenException("Not found Authorization header");
+            }
+
             String idToken = bearerToken.substring(7);
 
             if(idToken == null || idToken.isEmpty()){
