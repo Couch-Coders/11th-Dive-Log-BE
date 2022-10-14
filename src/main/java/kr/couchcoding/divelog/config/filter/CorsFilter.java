@@ -21,8 +21,8 @@ import java.io.IOException;
 // 진행중일때 새로운 사람이 신청할수 없게 처리
 // 날짜를 계산해서
 // 두개
-@Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
+// @Component
+// @Order(Ordered.HIGHEST_PRECEDENCE)
 @Slf4j
 public class CorsFilter implements Filter {
 
@@ -43,14 +43,7 @@ public class CorsFilter implements Filter {
         res.setHeader("Access-Control-Max-Age", "3600");
         res.setHeader("Access-Control-Allow-Headers", "*");
 
-        if("OPTIONS".equalsIgnoreCase(req.getMethod())) {
-            log.info("host : " + req.getRemoteHost());
-            log.info("addr : " + req.getRemoteAddr());
-            log.info("port : " + req.getRemotePort());
-            res.setStatus(HttpServletResponse.SC_OK);
-        }else {
-            chain.doFilter(req, res);
-        }
+        chain.doFilter(req, res);
     }
 
     @Override

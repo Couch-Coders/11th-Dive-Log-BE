@@ -59,6 +59,7 @@ public class AuthController {
             .httpOnly(true)
             .secure(true)
             .path("/")
+            .sameSite("None")
             .build();
     }
 
@@ -68,6 +69,7 @@ public class AuthController {
             .secure(true)
             .path("/")
             .maxAge(0)
+            .sameSite("None")
             .build();
     }
     
