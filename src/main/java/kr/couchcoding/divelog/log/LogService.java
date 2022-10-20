@@ -66,7 +66,8 @@ public class LogService {
         for(int i = 0; i < images.size(); i++){
             MultipartFile image = images.get(i);
             String fileName = image.getOriginalFilename();
-            String filePath = "/logs/" + id + "/" + fileName + i;
+            int number = i + diveLog.getImages().size();
+            String filePath = "/logs/" + id + "/images/" + fileName + number;
             imageUrls.add(filePath);
             try {
                 bucket.create(filePath, image.getBytes(), image.getContentType());
@@ -81,8 +82,8 @@ public class LogService {
         return diveLog;
     }
 
-    public byte[] getImage(Long id, User user, String imageName) throws ImageNotFoundException {
-        String filePath = "/logs/" + id + "/" + imageName;
+    public byte[] getImage(Long id, String imageName) throws ImageNotFoundException {
+        String filePath = "/logs/" + id + "/images/" + imageName;
         Blob blob = bucket.get(filePath);
         if(blob == null){
             throw new ImageNotFoundException(filePath + " is not found");
@@ -93,7 +94,7 @@ public class LogService {
     @Transactional
     public void deleteImage(Long id, User user, String imageName) throws InvalidLogAccessException {
         Log diveLog = getDiveLogWithVerifyAccess(id, user);
-        String filePath = "/logs/" + id + "/" + imageName;
+        String filePath = "/logs/" + id + "/images" + imageName;
 
         Blob blob = bucket.get(filePath);
         blob.delete();

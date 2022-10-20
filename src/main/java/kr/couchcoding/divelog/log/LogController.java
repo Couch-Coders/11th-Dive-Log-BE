@@ -80,10 +80,9 @@ public class LogController {
     }
 
     @GetMapping(value="/{id}/images/{imageName}")
-    public byte[] getImage(Authentication authentication, @PathVariable Long id,
+    public byte[] getImage(@PathVariable Long id,
          @PathVariable String imageName) throws ImageNotFoundException {
-        User user = (User) authentication.getPrincipal();
-        return logService.getImage(id, user, imageName);
+        return logService.getImage(id, imageName);
     }
 
     @DeleteMapping(value="/{id}/images/{imageName}")

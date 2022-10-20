@@ -53,7 +53,8 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
                 .antMatchers(HttpMethod.OPTIONS, "/**")
-                .antMatchers("/")
+                .antMatchers(HttpMethod.GET, "/logs/*/images/**")
+                .antMatchers(HttpMethod.GET, "/")
                 .antMatchers(HttpMethod.GET, "/locations")
                 .antMatchers(HttpMethod.GET, "/diveTypes")
                 .antMatchers("/auth/login") //로그인은 로그인이 필요 없다
